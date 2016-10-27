@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class BlogController extends Controller
 {
     /**
+     * Page d'accueil du site avec affichage des articles
      * @Route("/", name="blog")
      * @Template("Blog/index.html.twig")
      */
@@ -30,6 +31,7 @@ class BlogController extends Controller
     }
 
     /**
+     * Page d'affichage d'un article
      * @Route("article/{id}", name="article")
      * @Template("Blog/article.html.twig")
      */
@@ -43,15 +45,14 @@ class BlogController extends Controller
         $commentaire = $this->getDoctrine()
             ->getManager()
             ->getRepository('BlogBundle:Commentaires')
-            ->find($id);
-
-        dump($commentaire);
+            ->findBy(array('idArticle' => $article));
 
         return array('article' => $article, 'commentaires' => $commentaire);
     }
 
 
     /**
+     * Page d'affichage des membres
      * @Route("membres", name="membres")
      * @Template("Blog/membres.html.twig")
      */
@@ -64,17 +65,7 @@ class BlogController extends Controller
 
 
     /**
-     * @Route("commentaires", name="commentaires")
-     * @Template("Blog/commentaires.html.twig")
-     */
-    public function viewCommentaireAction()
-    {
-        $commentaire = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaires')->findAll();
-
-        return array('commentaires' => $commentaire);
-    }
-
-    /**
+     * Page d'affichage d'un utilisateur
      * @Route("profil/{id}", name="profil")
      * @Template("Blog/profil.html.twig")
      */

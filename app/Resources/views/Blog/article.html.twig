@@ -20,7 +20,8 @@
                 <h1>Commentaire</h1>
 
                 {% for commentaire in commentaires %}
-                    {{ commentaire.commentaire }}
+                    {{ commentaire.commentaire }} <br>
+                    <hr>
                 {% else %}
                     Il n'y a aucun commentaire
                 {% endfor %}

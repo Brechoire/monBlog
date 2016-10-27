@@ -37,6 +37,8 @@ class Commentaires
      * @var integer
      *
      * @ORM\Column(name="id_article", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="BlogBundle\Entity\Articles")
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $idArticle;
 
