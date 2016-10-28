@@ -38,12 +38,7 @@ class BlogController extends Controller
      */
     public function viewArticleAction($id)
     {
-
-        $com = new CommentairesManager();
-
-        $nbCommentaire = $com->countCommentaires($id);
-
-        dump($nbCommentaire);
+      
 
         $article = $this->getDoctrine()
             ->getManager()
