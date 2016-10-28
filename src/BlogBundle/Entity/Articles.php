@@ -41,6 +41,29 @@ class Articles
     protected $auteur;
 
     /**
+     * @return int
+     */
+    public function getValide()
+    {
+        return $this->valide;
+    }
+
+    /**
+     * @param int $valide
+     */
+    public function setValide($valide)
+    {
+        $this->valide = $valide;
+    }
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="valide", type="integer")
+     */
+    protected $valide;
+
+    /**
      * @return string
      */
     public function getTitre()

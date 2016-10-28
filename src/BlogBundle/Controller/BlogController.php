@@ -8,6 +8,7 @@
 
 namespace BlogBundle\Controller;
 
+use BlogBundle\Service\CommentairesManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,11 +33,18 @@ class BlogController extends Controller
 
     /**
      * Page d'affichage d'un article
-     * @Route("article/{id}", name="article")
+     * @Route("article/{id}", name="article", requirements={"page": "\d+"})
      * @Template("Blog/article.html.twig")
      */
     public function viewArticleAction($id)
     {
+
+        $com = new CommentairesManager();
+
+        $nbCommentaire = $com->countCommentaires($id);
+
+        dump($nbCommentaire);
+
         $article = $this->getDoctrine()
             ->getManager()
             ->getRepository('BlogBundle:Articles')
@@ -47,7 +55,9 @@ class BlogController extends Controller
             ->getRepository('BlogBundle:Commentaires')
             ->findBy(array('idArticle' => $article));
 
-        return array('article' => $article, 'commentaires' => $commentaire);
+        return array('article' => $article,
+            'commentaires' => $commentaire
+        );
     }
 
 
@@ -58,7 +68,10 @@ class BlogController extends Controller
      */
     public function viewMemberAction()
     {
-        $users = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Membres')->findAll();
+        $users = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('BlogBundle:Membres')
+            ->findAll();
 
         return array('users' => $users);
     }
